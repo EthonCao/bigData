@@ -3,6 +3,7 @@ package hive;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.sql.Statement;
 
 import org.apache.commons.lang3.StringUtils;
@@ -89,6 +90,17 @@ public class HiveAPITest {
     public void selectData(String sql) throws Exception {
         System.out.println("Running: " + sql);
         rs = stmt.executeQuery(sql);
+        while (rs.next()) {
+            System.out.println(rs.getString(1));
+        }
+    }
+    
+    //分页查询数据
+    public void selectDataByPagination(String tableName, int pageNow, int pageSize) throws SQLException {
+    	String sql = "select * from (select row_number() over (order by empno) as rnum ,e.* from " + tableName + " e)t " 
+    			+ " where rnum > " + (pageNow - 1) * pageSize 
+    			+ " and rnum <= " + pageNow * pageSize;
+    	rs = stmt.executeQuery(sql);
         while (rs.next()) {
             System.out.println(rs.getString(1));
         }
