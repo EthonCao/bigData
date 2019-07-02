@@ -9,7 +9,10 @@ import org.apache.commons.lang3.StringUtils;
 
 public class HiveAPITest {
 	private static String driverName = "org.apache.hive.jdbc.HiveDriver";
-    private static String url = "jdbc:hive2://192.168.17.2:10000";
+	//Specified database
+	//private static String url = "jdbc:hive2://192.168.17.2:10000/databaseName";
+	//Not specified database
+	private static String url = "jdbc:hive2://192.168.17.2:10000";
     private static String user = "root";
     private static String password = "sjcp<>123";
 
